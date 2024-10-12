@@ -51,7 +51,14 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Deploy to AKS
-        run: |
-          kubectl set image deployment/app1 app1=${{ secrets.DOCKER_USERNAME }}/app1:latest
-          kubectl set image deployment/app2 app2=${{ secrets.DOCKER_USERNAME }}/app2:latest
+      - name: Apply app1 deployment
+        run: kubectl apply -f app1-deployment.yaml
+
+      - name: Apply app2 deployment
+        run: kubectl apply -f app2-deployment.yaml
+
+      - name: Update app1 image
+        run: kubectl set image deployment/app1 app1=${{ secrets.DOCKER_USERNAME }}/app1:latest
+
+      - name: Update app2 image
+        run: kubectl set image deployment/app2 app2=${{ secrets.DOCKER_USERNAME }}/app2:latest
