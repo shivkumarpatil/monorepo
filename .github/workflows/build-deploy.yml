@@ -62,3 +62,14 @@ jobs:
 
       - name: Update app2 image
         run: kubectl set image deployment/app2 app2=${{ secrets.DOCKER_USERNAME }}/app2:latest
+          local-deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Compose
+        run: |
+          docker-compose up --build -d
