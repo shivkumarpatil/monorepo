@@ -16,7 +16,7 @@ spec:
       - name: app2
         image: your-docker-username/app2:latest
         ports:
-        - containerPort: 3000
+        - containerPort: 3001
 ---
 apiVersion: v1
 kind: Service
@@ -28,5 +28,5 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 3000
+      targetPort: 3001
   type: LoadBalancer
