@@ -17,4 +17,4 @@ COPY . .
 CMD [ "node", "server2.js" ]
 
 # Expose the port the app runs on.
-EXPOSE 8081
+EXPOSE 3001
