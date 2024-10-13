@@ -3,8 +3,8 @@ services:
   app1:
     build: ./app1
     ports:
-      - "8080:8080"
+      - "3000:3000"
   app2:
     build: ./app2
     ports:
-      - "8081:8081"
+      - "3001:3001"
