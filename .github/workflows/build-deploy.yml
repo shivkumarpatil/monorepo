@@ -91,8 +91,12 @@ jobs:
           echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list
           sudo apt update && sudo apt install ngrok
 
-      - name: Start ngrok
+      - name: Start ngrok for app1
         run: |
+          ngrok authtoken ${{ secrets.NGROK_AUTH_TOKEN }}
           ngrok http 8080 &
-          ngrok http 8081 &
 
+      - name: Start ngrok for app2
+        run: |
+          ngrok authtoken ${{ secrets.NGROK_AUTH_TOKEN }}
+          ngrok http 8081 &
