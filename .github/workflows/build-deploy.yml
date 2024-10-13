@@ -84,9 +84,7 @@ jobs:
       - name: Set up Docker Compose
         working-directory: ${{ github.workspace }}
         run: |
-          docker-compose up --build
+          docker-compose up --build -d
 
-      - name: Print Docker Compose logs
-        working-directory: ${{ github.workspace }}
-        run: |
-          docker-compose logs
+      - name: Wait for services to start
+        run: sleep 10
