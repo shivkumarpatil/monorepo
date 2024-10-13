@@ -81,8 +81,8 @@ jobs:
       - name: List files in working directory
         run: ls -la ${{ github.workspace }}
 
-    - name: Set up Docker Compose
-      working-directory: ${{ github.workspace }}
-      run: |
-        docker-compose up --build -d
+      - name: Set up Docker Compose
+        working-directory: ${{ github.workspace }}
+        run: |
+          docker-compose up --build -d
 
