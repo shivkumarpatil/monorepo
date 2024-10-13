@@ -1,5 +1,9 @@
 {
-    "name": "app1",
-    "version": "1.0.0",
-    "author": "blah blah"
-  }   
+  "name": "app2",
+  "version": "1.0.0",
+  "author": "blah blah
+  "main": "server2.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
