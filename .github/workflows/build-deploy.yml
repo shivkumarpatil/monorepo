@@ -70,23 +70,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install Docker Compose
+      - name: Install Docker Compose  
         run: |
           sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
 
       - name: Change to repository directory
         run: cd ${{ github.workspace }}
-      - name: Set up Docker Compose
-        working-directory: ${{ github.workspace }}
-        run: |
-          docker-compose up --build -d
-      - name: Print working directory
-        run: pwd
 
       - name: List files in working directory
-        run: ls -la
+        run: ls -la ${{ github.workspace }}
 
-      - name: Set up Docker Compose
-        run: |
-          docker-compose up --build -d
+    - name: Set up Docker Compose
+      working-directory: ${{ github.workspace }}
+      run: |
+        docker-compose up --build -d
+
