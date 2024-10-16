@@ -6,6 +6,7 @@ WORKDIR /app
 
 # Copy application dependency manifests to the container image.
 COPY package*.json ./
+COPY .npmrc ./
 
 # Install dependencies.
 RUN npm install
