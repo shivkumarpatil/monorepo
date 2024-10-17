@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server2.js",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "react": "2.1.0"
   }
 }
-// for testing purspose
