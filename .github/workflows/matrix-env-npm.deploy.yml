@@ -58,6 +58,10 @@ jobs:
         cd ${{ matrix.app }}
         npm audit fix
 
+    - name: Print npm logs
+      if: failure()
+      run: cat /home/runner/.npm/_logs/*.log
+
     - name: Run tests
       run: |
         cd ${{ matrix.app }}
