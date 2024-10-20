@@ -5,15 +5,14 @@ FROM node:14
 WORKDIR /app
 
 # Copy application dependency manifests to the container image.
-COPY package.json ./
-COPY package*.json ./
-#COPY .npmrc ./
+COPY app2/package*.json ./
+#COPY app2/.npmrc ./
 
 # Install dependencies.
 RUN npm install
 
 # Copy local code to the container image.
-COPY . .
+COPY app2/ .
 
 # Build the React app.
 RUN npm run build
@@ -23,5 +22,3 @@ EXPOSE 3001
 
 # Run the web service on container startup.
 CMD [ "node", "server2.js" ]
-
-
