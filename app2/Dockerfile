@@ -14,8 +14,10 @@ RUN npm install
 # Copy local code to the container image.
 COPY . .
 
+# Expose the port the app runs on.
+EXPOSE 3001
+
 # Run the web service on container startup.
 CMD [ "node", "server2.js" ]
 
-# Expose the port the app runs on.
-EXPOSE 3001
+
