@@ -14,6 +14,9 @@ RUN npm install
 # Copy local code to the container image.
 COPY app2/ .
 
+# Set environment variables
+ENV MY_GITHUB_TOKEN=${MY_GITHUB_TOKEN}
+
 # Build the React app.
 RUN npm run build
 
