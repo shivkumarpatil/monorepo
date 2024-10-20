@@ -41,7 +41,7 @@ jobs:
         node-version: '14'
 
     - name: Configure npm to use GitHub Package Registry
-      run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
+      run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB1_TOKEN }}" > ~/.npmrc
 
     - name: Install dependencies
       run: |
