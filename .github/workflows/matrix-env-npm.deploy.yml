@@ -42,11 +42,11 @@ jobs:
 
     - name: Configure npm to use GitHub Package Registry for app1
       if: matrix.app == 'app1'
-      run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB1_TOKEN }}" > app1/.npmrc
+      run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.MY_GITHUB_TOKEN }}" > app1/.npmrc
 
     - name: Configure npm to use GitHub Package Registry for app2
       if: matrix.app == 'app2'
-      run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB1_TOKEN }}" > app2/.npmrc
+      run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.MY_GITHUB_TOKEN }}" > app2/.npmrc
 
     - name: Install dependencies
       run: |
