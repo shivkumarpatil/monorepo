@@ -53,6 +53,11 @@ jobs:
         cd ${{ matrix.app }}
         npm install
 
+    - name: Fix vulnerabilities
+      run: |
+        cd ${{ matrix.app }}
+        npm audit fix
+
     - name: Run tests
       run: |
         cd ${{ matrix.app }}
