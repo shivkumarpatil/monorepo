@@ -9,7 +9,7 @@ COPY app2/package*.json ./
 #COPY app2/.npmrc ./
 
 # Install dependencies.
-RUN npm install
+RUN npm install -legacy-peer-deps
 
 # Copy local code to the container image.
 COPY app2/ .
