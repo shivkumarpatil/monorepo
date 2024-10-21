@@ -52,16 +52,6 @@ jobs:
       run: |
         cd ${{ matrix.app }}
         npm install
-
-    - name: Fix vulnerabilities
-      run: |
-        cd ${{ matrix.app }}
-        npm audit fix
-
-    - name: Print npm logs
-      if: failure()
-      run: cat /home/runner/.npm/_logs/*.log
-
     - name: Run tests
       run: |
         cd ${{ matrix.app }}
