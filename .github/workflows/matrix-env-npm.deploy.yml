@@ -2,6 +2,8 @@ name: matrix-env-gh-secret-npm
 
 on:
   push:
+    branches:
+      - 'feature/**'
     paths:
       - 'app1/**'
       - 'app2/**'
@@ -11,10 +13,19 @@ on:
       - 'app2/**'
   workflow_dispatch:
     inputs:
+      deploy_apps:
+        type: choice
+        required: true
+        default: both
+        description: Deploy options
+        options:
+          - app1
+          - app2
+          - both
       environment:
         description: 'Deployment environment'
         required: true
-        default: 'uat'
+        default: 'dev'
         type: choice
         options:
           - dev
