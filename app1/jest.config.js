@@ -1,4 +1,4 @@
 module.exports = {
-  roots: ['app1/src'],
+  roots: ['<rootDir>/src'],
   // other configurations
 };
