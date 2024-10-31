@@ -6,8 +6,8 @@ on:
       - 'feature/**'
       - 'main'
     paths:
-      - 'app1'
-      - 'app2'
+      - 'app1/**'
+      - 'app2/**'
   pull_request:
     paths:
       - 'app1/**'
