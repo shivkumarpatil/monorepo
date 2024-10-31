@@ -54,7 +54,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '14'
+        node-version: '16'
 
     - name: Configure npm to use GitHub Package Registry for app1
       if: matrix.app == 'app1' && matrix.deploy
