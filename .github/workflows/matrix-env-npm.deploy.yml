@@ -41,6 +41,11 @@ jobs:
     strategy:
       matrix:
         app: [app1, app2]
+        include:
+          - app: app1
+            deploy: ${{ github.event.inputs.deploy_apps == 'app1' || github.event.inputs.deploy_apps == 'both' }}
+          - app: app2
+            deploy: ${{ github.event.inputs.deploy_apps == 'app2' || github.event.inputs.deploy_apps == 'both' }}
 
     steps:
     - name: Checkout code
@@ -52,43 +57,43 @@ jobs:
         node-version: '14'
 
     - name: Configure npm to use GitHub Package Registry for app1
-      if: matrix.app == 'app1' && (github.event.inputs.deploy_apps == 'app1' || github.event.inputs.deploy_apps == 'both')
+      if: matrix.app == 'app1' && matrix.deploy
       run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.MY_GITHUB_TOKEN }}" > app1/.npmrc
 
     - name: Configure npm to use GitHub Package Registry for app2
-      if: matrix.app == 'app2' && (github.event.inputs.deploy_apps == 'app2' || github.event.inputs.deploy_apps == 'both')
+      if: matrix.app == 'app2' && matrix.deploy
       run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.MY_GITHUB_TOKEN }}" > app2/.npmrc
 
     - name: Install dependencies
-      if: (matrix.app == 'app1' && (github.event.inputs.deploy_apps == 'app1' || github.event.inputs.deploy_apps == 'both')) || (matrix.app == 'app2' && (github.event.inputs.deploy_apps == 'app2' || github.event.inputs.deploy_apps == 'both'))
+      if: matrix.deploy
       run: |
         cd ${{ matrix.app }}
         npm install
 
     - name: Run tests
-      if: (matrix.app == 'app1' && (github.event.inputs.deploy_apps == 'app1' || github.event.inputs.deploy_apps == 'both')) || (matrix.app == 'app2' && (github.event.inputs.deploy_apps == 'app2' || github.event.inputs.deploy_apps == 'both'))
+      if: matrix.deploy
       run: |
         cd ${{ matrix.app }}
         npm test
 
     - name: Build Docker image
-      if: (matrix.app == 'app1' && (github.event.inputs.deploy_apps == 'app1' || github.event.inputs.deploy_apps == 'both')) || (matrix.app == 'app2' && (github.event.inputs.deploy_apps == 'app2' || github.event.inputs.deploy_apps == 'both'))
+      if: matrix.deploy
       run: |
         cd ${{ matrix.app }}
         docker build -t myregistry/${{ matrix.app }}:${{ github.sha }} .
 
     - name: Log in to Docker Hub
-      if: (matrix.app == 'app1' && (github.event.inputs.deploy_apps == 'app1' || github.event.inputs.deploy_apps == 'both')) || (matrix.app == 'app2' && (github.event.inputs.deploy_apps == 'app2' || github.event.inputs.deploy_apps == 'both'))
+      if: matrix.deploy
       run: |
         echo ${{ secrets.DOCKER_PASSWORD }} | docker login myregistry.azurecr.io -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
     - name: Push Docker image to ACR
-      if: (matrix.app == 'app1' && (github.event.inputs.deploy_apps == 'app1' || github.event.inputs.deploy_apps == 'both')) || (matrix.app == 'app2' && (github.event.inputs.deploy_apps == 'app2' || github.event.inputs.deploy_apps == 'both'))
+      if: matrix.deploy
       run: |
         docker push myregistry/${{ matrix.app }}:${{ github.sha }}
 
     - name: Deploy to AKS
-      if: (matrix.app == 'app1' && (github.event.inputs.deploy_apps == 'app1' || github.event.inputs.deploy_apps == 'both')) || (matrix.app == 'app2' && (github.event.inputs.deploy_apps == 'app2' || github.event.inputs.deploy_apps == 'both'))
+      if: matrix.deploy
       run: |
         cd ${{ matrix.app }}
         kubectl apply -f deployment-${{ github.event.inputs.environment }}.yaml
