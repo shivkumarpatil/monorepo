@@ -9,15 +9,13 @@
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3"
   },
-    "devDependencies": {
+  "devDependencies": {
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
     "enzyme-to-json": "^3.6.1"
   },
   "jest": {
-        "snapshotSerializers": ["enzyme-to-json/serializer"]
-  }
-}
+    "snapshotSerializers": ["enzyme-to-json/serializer"],
     "clearMocks": true,
     "collectCoverageFrom": ["src/**/*.{js,jsx,ts,tsx}"],
     "coveragePathIgnorePatterns": ["/node_modules/"],
@@ -37,7 +35,6 @@
     "resetMocks": true,
     "resetModules": true,
     "restoreMocks": true,
-    "snapshotSerializers": ["enzyme-to-json/serializer"],
     "testMatch": ["<rootDir>/src/**/?(*.)+(spec|test).[jt]s?(x)"],
     "transform": {
       "^.+\\.(js|jsx|ts|tsx)$": "babel-jest"
